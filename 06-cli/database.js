@@ -23,7 +23,7 @@ class DataBase {
 
     async cadastrar(heroi) {
         const dados = await this.obterDadosArquivo()
-        const id = heroi.id <=2 ? heroi.id : Date.now();
+        const id = heroi.id <= 2 ? heroi.id : Date.now();
         /*
         {
             nome: Flash,
@@ -42,10 +42,7 @@ class DataBase {
         */
 
         // com isso ele vai contatenar os atributos nome e poder
-        const heroiComId = {
-            id,
-            ...heroi
-        }
+        const heroiComId = { id, ...heroi }
 
         //Incluido um objeto a uma lista de array
         //Outra forma seria usar o push
@@ -59,6 +56,24 @@ class DataBase {
         const dados = await this.obterDadosArquivo()
         const dadosFiltrados = dados.filter(item => (id ? (item.id == id) : true))
         return dadosFiltrados
+    }
+
+    async remover(id) {
+
+        if (!id) {
+            return await this.escreverArquivo([])
+        }
+
+        const dados = await this.obterDadosArquivo()
+        console.log('id', id)
+        const indice = dados.findIndex(item => item.id == parseInt(id))
+
+        if (indice == -1) {
+            throw Error('O heroi informado nao existe')
+        }
+
+        dados.splice(indice, 1)
+        return await this.escreverArquivo(dados)
     }
 }
 

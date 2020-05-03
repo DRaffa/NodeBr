@@ -2,7 +2,18 @@
 npm test
 npm t
 npm run testeRafael --> usa se o run quando a tag no pacote é customizada
+mocha -w toda vez que atualizar os arquivos ele executa o comando
 
 mocha --help
 mocha --reporter nyan
 mocha --reporter text
+
+*Criando um objeto a partir de outro
+const expected = { ...DEFAULT_ITEM_CADASTRAR, id:2, nome: 'Batman' } 
+
+*Pegando a primeira posicao de uma lista se nao existir a variavel sera undefined
+*idem usar o lista.find(x => x.id == id)
+const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id)
+
+* remover um item a partir do indice
+dados.splice(indice, 1)
