@@ -17,3 +17,5 @@ const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id)
 
 * remover um item a partir do indice
 dados.splice(indice, 1)
+
+it.only para executar apenas um it
