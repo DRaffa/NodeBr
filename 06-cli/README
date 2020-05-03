@@ -1,0 +1,4 @@
+** Executando os testes **
+npm test
+npm t
+npm run testeRafael --> usa se o run quando a tag no pacote é customizada
