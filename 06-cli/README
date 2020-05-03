@@ -19,3 +19,17 @@ const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id)
 dados.splice(indice, 1)
 
 it.only para executar apenas um it
+* Ajuda a indentificar os comandos disponiveis
+node index.js --help
+* Versao
+node index.js -V
+* Cadastrar
+node index.js -c -n Flash -p Velocidade
+node index.js -cadastrar -nome Flash -poder Velocidade
+* Remover
+node index.js -r -i 1588525049847
+* Lista
+node index.js -l
+* Atualizar
+node index.js -a 1588525991688 -p Speed
+

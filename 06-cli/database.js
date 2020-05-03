@@ -23,7 +23,8 @@ class DataBase {
 
     async cadastrar(heroi) {
         const dados = await this.obterDadosArquivo()
-        const id = heroi.id <= 2 ? heroi.id : Date.now();
+        // const id = heroi.id <= 2 ? heroi.id : Date.now();
+        const id = dados.length == 0 ? 1 : parseInt(dados[dados.length - 1].id) + 1
         /*
         {
             nome: Flash,
