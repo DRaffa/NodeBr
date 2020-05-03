@@ -5,6 +5,11 @@ const DEFAULT_ITEM_CADASTRAR = { nome: 'Flash', poder: 'Speed', id: 1 }
 
 describe('Suite de manipulacao de Herois', () => {
 
+    // antes de tudo quero que der um await
+    before(async () => {
+        await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
+    })
+
     it('deve pesquisar um heroi usando arquivos', async () => {
         const expected = DEFAULT_ITEM_CADASTRAR
         //const resultado = await database.listar(expected.id)
@@ -19,10 +24,16 @@ describe('Suite de manipulacao de Herois', () => {
         //ok(resultado, expected)
     })
 
-    // it('deve cadastrar um heroi, usando arquivos', async () => {
-    //     const expected = DEFAULT_ITEM_CADASTRAR
+    it('deve cadastrar um heroi, usando arquivos', async () => {
+        const expected = DEFAULT_ITEM_CADASTRAR        
+        //Criando um objeto a partir de outro
+        //const expected = { ...DEFAULT_ITEM_CADASTRAR, id:2, nome: 'Batman' } 
 
-    //     //
-    //     ok(null, expected)
-    // })
+        const resultado = await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
+
+        //Pegando a primeira posicao de uma lista se nao existir a variavel sera undefined
+        // idem usar o lista.find(x => x.id == id)
+        const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id)
+        deepEqual(actual, expected)
+    })
 })

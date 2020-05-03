@@ -2,3 +2,7 @@
 npm test
 npm t
 npm run testeRafael --> usa se o run quando a tag no pacote é customizada
+
+mocha --help
+mocha --reporter nyan
+mocha --reporter text
