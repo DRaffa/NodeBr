@@ -1,0 +1,91 @@
+* listar comandos do docker
+docker ps
+
+* Instalando o postgres no docker
+
+docker run \
+    --name postgres \
+    -e POSTGRES_USER=draffa \
+    -e POSTGRES_PASSWORD=minhasenhasecreta \
+    -e POSTGRES_DB=heroes \
+    -p 5432:5432 \
+    -d \
+    postgres
+
+* entrar no container
+docker exec -it postgres /bin/bash
+
+* sair do container
+exit
+
+* criar uma instancia concorrente
+docker run \
+ --name adminer \
+ -p 8080:8080 \
+ --link postgres:postgres \
+ -d \
+ adminer
+
+ * acessando o navegador adminer
+ http://localhost:8080/
+
+Sistema: PostgreSQL
+Servidor: postgres
+Usuario: draffa
+Senha: minhasenhasecreta
+Base de Dados: heroes
+
+******************************************
+* Instalando o postgres no docker
+
+docker run \
+    --name mongodb \
+    -p 27017:27017 \
+    -e MONGO_INITDB_ROOT_USERNAME=admin \
+    -e MONGO_INITDB_ROOT_PASSWORD=senhaadmin \
+    -d \
+    mongo:4
+
+* criando uma nova instancia para executar o mongo db
+
+docker run \
+    --name mongoclient \
+    -p 3000:3000 \
+    --link mongodb:mongodb \
+    -d \
+    mongoclient/mongoclient
+
+ * acessando o navegador adminer
+ http://localhost:3000/
+
+* criar usuario e associar as regras
+
+docker exec -it mongodb \
+    mongo --host localhost -u admin -p senhaadmin --authenticationDatabase admin \
+    --eval "db.getSiblingDB('herois').createUser({user: 'draffa', pwd: 'minhasenhasecreta', roles: [{role: 'readWrite', db: 'herois'}]})"
+
+* Inciando as instancias dos containers criados que estao parados
+
+docker start mongoclient/mongodb
+docker start mongoclient
+docker start adminer/postgres
+docker start adminer
+
+* Outra forma
+docker container start mongodb postgres mongoclient adminer
+
+* outra opcao é remover os containers
+
+docker rm $(docker ps -aq)
+
+*************************
+npm i sequelize
+npm i pg-hstore pg
+npm i --save-dev mocha
+*************************
+
+* Testando com mocha
+mocha *.test.js
+
+* remover pasta node_modules
+rm -rf node_modules
