@@ -162,4 +162,21 @@ describe.only('Suite de testes da Api herois', function () {
     assert.ok(statusCode === 412);
     assert.deepEqual(dados, expectedError);
   });
+
+  it('Excluir /heroi/:id com Erro Exception', async () => {
+    const _id = '5f072a71f020d10c615cb8a1wwww'; //`${MOCK_ID}01`;
+    const result = await app.inject({
+      method: 'DELETE',
+      url: `/herois/${_id}`,
+    });
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+    const expectedError = {
+      statusCode: 500,
+      error: 'Internal Server Error',
+      message: 'An internal server error occurred',
+    };
+    assert.ok(statusCode === 500);
+    assert.deepEqual(dados, expectedError);
+  });
 });
